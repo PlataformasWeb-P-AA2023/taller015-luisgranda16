@@ -3,8 +3,9 @@ from django.db import models
 # Create your models here.
 class Edificio(models.Model):
     opciones_tipo_edificio = (
-        ('residencial', 'Residencial'),
-        ('comercial', 'Comercial')
+        ('Residencial', 'Residencial'),
+        ('Público', 'Público'),
+        ('Negocio', 'Negocio'),
     )
 
     nombre = models.CharField(max_length=30)
@@ -30,7 +31,7 @@ class Edificio(models.Model):
 
 
 class Propietario(models.Model):
-    cedula = models.CharField(max_length=30)
+    cedula = models.IntegerField()
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=30)
 
@@ -49,8 +50,8 @@ class Propietario(models.Model):
     
 
 class Departamento(models.Model):
-    costo = models.DecimalField(max_digits= 8, decimal_places= 2)
-    nro_cuartos =  models.IntegerField("Número de cuartos")
+    costo = models.FloatField()
+    nro_cuartos =  models.IntegerField()
     edificio = models.ForeignKey(Edificio, on_delete=models.CASCADE,
             related_name="departamentosE")
     propietario = models.ForeignKey(Propietario, on_delete=models.CASCADE,

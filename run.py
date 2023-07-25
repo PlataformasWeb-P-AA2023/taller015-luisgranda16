@@ -15,7 +15,7 @@ for index, row in propietarios.iterrows():
         'apellido': apellido
     }
     
-    r = requests.post('http://127.0.0.1:8000/propietarios/', data=data, auth=('lucho', '1234'))
+    r = requests.post('http://127.0.0.1:8000/api/propietarios/', data=data, auth=('lucho', '1234'))
     
     if r.status_code == 201:
         print(f"Propietario '{nombre} {apellido}' creado exitosamente.")
@@ -39,7 +39,7 @@ for index, row in edificios.iterrows():
         'tipo': tipo
     }
     
-    r = requests.post('http://127.0.0.1:8000/edificios/', data=data, auth=('lucho', '1234'))
+    r = requests.post('http://127.0.0.1:8000/api/edificios/', data=data, auth=('lucho', '1234'))
     
     if r.status_code == 201:
         print(f"Edificio '{nombre}' creado exitosamente.")
@@ -51,7 +51,7 @@ departamentos = pd.read_csv('data/departamentos.csv', delimiter='|')
 print(departamentos)
 
 def obtener_id_propietario(cedula_propietario):
-    url = f'http://127.0.0.1:8000/propietarios/?cedula={cedula_propietario}'
+    url = f'http://127.0.0.1:8000/api/propietarios/?cedula={cedula_propietario}'
     r = requests.get(url, auth=('lucho', '1234'))
     print(r)
     if r.status_code == 200:
@@ -63,7 +63,7 @@ def obtener_id_propietario(cedula_propietario):
     return None
 
 def obtener_id_edificio(nombre_edificio):
-    url = f'http://127.0.0.1:8000/edificios/?nombre={nombre_edificio}'
+    url = f'http://127.0.0.1:8000/api/edificios/?nombre={nombre_edificio}'
     r = requests.get(url, auth=('lucho', '1234'))
     if r.status_code == 200:
         edificios = r.json()
@@ -94,11 +94,11 @@ for index, row in departamentos.iterrows():
     data = {
         'propietario': propietario_id,
         'costo': costo,
-        'num_cuartos': num_cuartos,
+        'nro_cuartos': num_cuartos,
         'edificio': edificio_id
     }
 
-    r = requests.post('http://127.0.0.1:8000/departamentos/', data=data, auth=('lucho', '1234'))
+    r = requests.post('http://127.0.0.1:8000/api/departamentos/', data=data, auth=('lucho', '1234'))
 
     if r.status_code == 201:
         print(f"Departamento del propietario'{cedula_propietario}' creado.")
